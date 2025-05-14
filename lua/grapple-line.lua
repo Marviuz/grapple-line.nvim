@@ -156,7 +156,7 @@ end
 local function get_name(path, depth)
 	depth = depth or 1
 	local parts = {}
-	for part in string.gmatch(path, "[^/]+") do
+	for part in string.gmatch(path, "[^/\\]+") do
 		table.insert(parts, part)
 	end
 
