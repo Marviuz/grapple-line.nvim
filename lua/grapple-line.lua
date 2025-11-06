@@ -53,6 +53,7 @@ end
 ---@field tag_name string
 ---@field name string?
 ---@field count integer?
+---@field index integer
 
 ---@return grapple-line.file[]
 local function get_grapple_files()
@@ -71,7 +72,7 @@ local function get_grapple_files()
 		local path = tag.path
 
 		---@type grapple-line.file
-		local file = { path = path, current = path == current_path, tag_name = tag.name }
+		local file = { path = path, current = path == current_path, tag_name = tag.name, index = i }
 
 		table.insert(files, file)
 	end
@@ -116,9 +117,9 @@ local function make_statusline(files)
 
 		local text = ""
 		if file.tag_name and M.settings.show_names then
-			text = "[" .. file.tag_name .. "]"
+     	text = string.format("[%d] [%s]", file.index, file.tag_name)
 		else
-			text = file.name
+     	text = string.format("[%d] %s", file.index, file.name)
 		end
 
 		table.insert(result, "%#" .. color .. "# " .. text .. " %*")
